@@ -29,7 +29,18 @@ for scene in scenes:
     except IOError:
         False
 		
-#remove panchromatic channel
+	
+#remove BQA bands
+for subdir, dirs, files in os.walk(datadir):
+	bands=glob.glob(os.path.join(subdir, '*BQA.TIF'))
+	if bands == []:
+	   continue
+	else:
+	   command= 'rm %s' % (bands[0])
+	   print command
+	   os.system(command)
+	   
+#remove panchromatic bands
 for subdir, dirs, files in os.walk(datadir):
 	bands=glob.glob(os.path.join(subdir, '*B8.TIF'))
 	if bands == []:
@@ -37,7 +48,7 @@ for subdir, dirs, files in os.walk(datadir):
 	else:
 	   command= 'rm %s' % (bands[0])
 	   print command
-	   os.system(command)
+	   os.system(command) 
 		
 #create train points from selected scenes
 for subdir, dirs, files in os.walk(datadir):
@@ -99,4 +110,3 @@ for subdir, dirs, files in os.walk(datadir):
 	   print command
 	   os.system(command)
 	
-
